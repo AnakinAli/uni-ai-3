@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">Теоретична карта</title>
+  <desc id="desc">Формален модел, schema theorem, convergence и NFL</desc>
+  <rect width="1200" height="360" fill="#f8fafc" rx="24" />
+  <rect x="40" y="40" width="1120" height="280" rx="28" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
+  <text x="80" y="100" font-size="34" font-weight="700" fill="#0f172a" font-family="Arial, sans-serif">Теоретична карта</text>
+  <text x="80" y="140" font-size="18" fill="#475569" font-family="Arial, sans-serif">Формален модел, schema theorem, convergence и NFL</text>
+  <path d="M80 182 H1080" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 12" />
+  <rect x="80" y="210" width="130" height="48" rx="18" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" /> <text x="145" y="240" text-anchor="middle" font-size="16" fill="#0f172a" font-family="Arial, sans-serif">Model</text> <rect x="225" y="210" width="130" height="48" rx="18" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" /> <text x="290" y="240" text-anchor="middle" font-size="16" fill="#0f172a" font-family="Arial, sans-serif">Schema</text> <rect x="370" y="210" width="130" height="48" rx="18" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" /> <text x="435" y="240" text-anchor="middle" font-size="16" fill="#0f172a" font-family="Arial, sans-serif">Convergence</text> <rect x="515" y="210" width="130" height="48" rx="18" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" /> <text x="580" y="240" text-anchor="middle" font-size="16" fill="#0f172a" font-family="Arial, sans-serif">NFL</text>
+</svg>
