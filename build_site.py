@@ -210,6 +210,91 @@ def write_css():
           line-height: 1.65;
           color: rgb(71 85 105);
         }
+        .simple-intro-card {
+          margin-top: 1rem;
+          border: 1px solid rgb(165 243 252);
+          border-radius: 1rem;
+          background: rgb(236 254 255);
+          padding: 1rem 1.1rem;
+        }
+        .simple-intro-label {
+          font-size: .75rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: .12em;
+          color: rgb(8 145 178);
+        }
+        .simple-intro-body {
+          margin-top: .45rem;
+          font-size: .98rem;
+          line-height: 1.7;
+          color: rgb(15 23 42);
+        }
+        .why-matters-card {
+          margin-top: 1rem;
+          border: 1px solid rgb(186 230 253);
+          border-radius: 1rem;
+          background: rgb(240 249 255);
+          padding: .95rem 1rem;
+          font-size: .92rem;
+          line-height: 1.65;
+          color: rgb(15 23 42);
+        }
+        .evolution-steps {
+          display: grid;
+          gap: 1rem;
+          align-items: stretch;
+        }
+        .evolution-stage {
+          border: 1px solid rgb(226 232 240);
+          border-radius: 1rem;
+          background: white;
+          padding: 1rem;
+        }
+        .evolution-stage-title {
+          font-size: .82rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: .12em;
+          color: rgb(8 145 178);
+        }
+        .evolution-sequence {
+          margin-top: .65rem;
+          display: flex;
+          gap: .35rem;
+          font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+        .evolution-digit {
+          display: inline-flex;
+          width: 1.9rem;
+          height: 1.9rem;
+          align-items: center;
+          justify-content: center;
+          border-radius: .6rem;
+          border: 1px solid rgb(203 213 225);
+          background: rgb(248 250 252);
+          color: rgb(51 65 85);
+          font-size: .95rem;
+          font-weight: 700;
+        }
+        .evolution-digit.one {
+          border-color: rgb(34 197 94);
+          background: rgb(240 253 244);
+          color: rgb(22 101 52);
+        }
+        .evolution-arrow {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: rgb(8 145 178);
+        }
+        @media (min-width: 1024px) {
+          .evolution-steps {
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+          }
+        }
         """
     ).strip() + "\n"
     (ASSETS / "css" / "site.css").write_text(css, encoding="utf-8")
@@ -341,15 +426,53 @@ def write_js():
               }).join('') + '</div></section>';
           }
 
+          function renderSequence(sequence) {
+            return '<div class="evolution-sequence">' + String(sequence).split('').map(function (digit) {
+              const kind = digit === '1' ? ' one' : ' zero';
+              return '<span class="evolution-digit' + kind + '">' + esc(digit) + '</span>';
+            }).join('') + '</div>';
+          }
+
+          function renderSimpleExample(section, site, page) {
+            const card = section.exampleCard;
+            if (!card) return '';
+            return '<div class="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-5">' +
+              '<h3 class="text-xl font-semibold text-slate-900">' + esc(card.title) + '</h3>' +
+              (card.intro ? '<p class="mt-3 text-sm leading-6 text-slate-700">' + annotateText(card.intro, site, page) + '</p>' : '') +
+              (card.items && card.items.length ? '<ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-700">' + card.items.map(function (item) { return '<li>' + esc(item) + '</li>'; }).join('') + '</ul>' : '') +
+              (card.conclusion ? '<p class="mt-4 rounded-2xl border border-cyan-300 bg-white px-4 py-3 text-sm leading-6 text-cyan-950">' + esc(card.conclusion) + '</p>' : '') +
+              '</div>';
+          }
+
+          function renderVisualSteps(section) {
+            const steps = section.visualSteps || [];
+            if (!steps.length) return '';
+            return '<div class="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-5">' +
+              '<div class="flex flex-wrap items-center justify-between gap-3"><h3 class="text-xl font-semibold text-slate-900">Step-by-step evolution</h3><span class="rounded-full bg-white px-3 py-1 text-xs font-medium text-slate-600">от поколение към поколение</span></div>' +
+              '<div class="mt-5 evolution-steps">' +
+              steps.map(function (step, index) {
+                const stage = '<div class="evolution-stage"><p class="evolution-stage-title">' + esc(step.label) + '</p>' +
+                  (step.sequences || []).map(renderSequence).join('') +
+                  '</div>';
+                if (index === steps.length - 1) return stage;
+                return stage + '<div class="evolution-arrow" aria-hidden="true">→</div>';
+              }).join('') +
+              '</div></div>';
+          }
+
           function renderSections(page, site) {
             return (page.sections || []).map(function (section) {
               return '<section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">' +
                 '<h2 class="text-2xl font-semibold text-slate-900">' + esc(section.title) + '</h2>' +
+                (section.simpleIntro ? '<div class="simple-intro-card"><p class="simple-intro-label">С прости думи</p><p class="simple-intro-body">' + annotateText(section.simpleIntro, site, page) + '</p></div>' : '') +
                 (section.paragraphs || []).map(function (paragraph) {
                   return '<p class="mt-4 text-base leading-7 text-slate-700">' + annotateText(paragraph, site, page) + '</p>';
                 }).join('') +
                 (section.bullets && section.bullets.length ? '<ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-700">' + section.bullets.map(function (bullet) { return '<li>' + annotateText(bullet, site, page) + '</li>'; }).join('') + '</ul>' : '') +
                 (section.equations && section.equations.length ? '<div class="mt-5 grid gap-3">' + section.equations.map(function (equation) { return '<div class="rounded-xl border border-cyan-200 bg-cyan-50 px-4 py-3 font-mono text-sm text-cyan-950">' + esc(equation) + '</div>'; }).join('') + '</div>' : '') +
+                renderSimpleExample(section, site, page) +
+                renderVisualSteps(section) +
+                (section.whyMatters ? '<p class="why-matters-card">' + annotateText(section.whyMatters, site, page) + '</p>' : '') +
                 (section.note ? '<p class="mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-900">' + annotateText(section.note, site, page) + '</p>' : '') +
                 '</section>';
             }).join('');

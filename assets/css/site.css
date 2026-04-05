@@ -131,3 +131,88 @@ body {
   line-height: 1.65;
   color: rgb(71 85 105);
 }
+.simple-intro-card {
+  margin-top: 1rem;
+  border: 1px solid rgb(165 243 252);
+  border-radius: 1rem;
+  background: rgb(236 254 255);
+  padding: 1rem 1.1rem;
+}
+.simple-intro-label {
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: rgb(8 145 178);
+}
+.simple-intro-body {
+  margin-top: .45rem;
+  font-size: .98rem;
+  line-height: 1.7;
+  color: rgb(15 23 42);
+}
+.why-matters-card {
+  margin-top: 1rem;
+  border: 1px solid rgb(186 230 253);
+  border-radius: 1rem;
+  background: rgb(240 249 255);
+  padding: .95rem 1rem;
+  font-size: .92rem;
+  line-height: 1.65;
+  color: rgb(15 23 42);
+}
+.evolution-steps {
+  display: grid;
+  gap: 1rem;
+  align-items: stretch;
+}
+.evolution-stage {
+  border: 1px solid rgb(226 232 240);
+  border-radius: 1rem;
+  background: white;
+  padding: 1rem;
+}
+.evolution-stage-title {
+  font-size: .82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: rgb(8 145 178);
+}
+.evolution-sequence {
+  margin-top: .65rem;
+  display: flex;
+  gap: .35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.evolution-digit {
+  display: inline-flex;
+  width: 1.9rem;
+  height: 1.9rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: .6rem;
+  border: 1px solid rgb(203 213 225);
+  background: rgb(248 250 252);
+  color: rgb(51 65 85);
+  font-size: .95rem;
+  font-weight: 700;
+}
+.evolution-digit.one {
+  border-color: rgb(34 197 94);
+  background: rgb(240 253 244);
+  color: rgb(22 101 52);
+}
+.evolution-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgb(8 145 178);
+}
+@media (min-width: 1024px) {
+  .evolution-steps {
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+  }
+}
